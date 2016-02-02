@@ -13,69 +13,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
         
-        <script type="text/javascript">
-            var glogalnumberofpies = 1;            
-            updatechart(glogalnumberofpies);
-        function displayOutput() {
-            var input = document.getElementById("userInput").value;
-            if (input.length < 1 ) {
-                alert("Var vänlig att ange antalet pajer");
-                return;
-            }
-            var thenumber = Number(input);
-            if (isNaN(thenumber) ){
-                alert("Ange ett antal i siffror");
-            }   else{
-                if (thenumber>10 ){
-                    alert("alldeles för många pajer!");
-                }
-                else{
-                    glogalnumberofpies = thenumber;
-                    updatechart(thenumber);
-                    document.getElementById("numberofpaj").innerHTML = input + " pajer";                    
-                    }
-            }   
-        }
-            
-        function calcamount ( onepievalue,iditem ) {
-            var theonepievalue = Number(onepievalue);
-            var result = glogalnumberofpies * theonepievalue;
-            console.log(result);            
-            document.getElementById(iditem).innerHTML = result ;
-            
-        }
-        
-        function calcamountfirst ( onepievalue ) {
-            var theonepievalue = Number(theonepievalue);
-            var result = glogalnumberofpies * theonepievalue;
-            console.log(result);            
-            return result;
-        }
-        
-        function updatechart ( amount ) {            
-            var multiplyer = amount;
-            calcamount ( 2.5 , "pajSemper" );
-            calcamount ( 0.5 , "pajKokosmjöl" );
-            calcamount ( 150 , "pajsmör" );
-            calcamount ( 0.5 , "pajsalt" );
-            calcamount ( 0.5 , "pajströsocker" );
-            calcamount ( 2 , "pajvatten" );   
-            
-            calcamount ( 2 , "fyllsemper" );
-            calcamount ( 125 , "fyllsmör" );
-            calcamount ( 1.5 , "fyllströsocker" );
-            calcamount ( 0.5 , "fyllsalt" );
-            calcamount ( 3 , "fyllsirap" );
-            calcamount ( 2 , "fyllägg" );
-            calcamount ( 1 , "fyllvaniljsocker" );
-            calcamount ( 150 , "pecannotter" );
-            
-        }
-            
-        
-        
 
-    </script>
        
     </head>
     <body>
@@ -103,7 +41,8 @@
         
         <p > 
             <span id="result"></span>
-    <input type="text" id="userInput" autofocus value = "Ange antalet pajer..." />
+    <input type="text" value="Ange antalet pajer..."  name="userInput" id="userInput"/>
+            
     <input class="btn" type="submit" value="Kalkulera" onclick="displayOutput()" /> 
              Räknar på : <span id="numberofpaj">1 paj</span>
             <div class="container1">
@@ -162,5 +101,85 @@
         
 
     </body>
+
+        <script type="text/javascript">
+            var glogalnumberofpies = 1;            
+            updatechart(glogalnumberofpies);
+        function displayOutput() {
+            var input = document.getElementById("userInput").value;
+            if (input.length < 1 ) {
+                alert("Var vänlig att ange antalet pajer");
+                return;
+            }
+            var thenumber = Number(input);
+            if (isNaN(thenumber) ){
+                alert("Ange ett antal i siffror");
+            }   else{
+                if (thenumber>10 ){
+                    alert("alldeles för många pajer!");
+                }
+                else{
+                    glogalnumberofpies = thenumber;
+                    updatechart(thenumber);
+                    document.getElementById("numberofpaj").innerHTML = input + " pajer";                    
+                    }
+            }   
+        }
+            
+        function calcamount ( onepievalue,iditem ) {
+            var theonepievalue = Number(onepievalue);
+            var result = glogalnumberofpies * theonepievalue;
+            console.log(result);            
+            document.getElementById(iditem).innerHTML = result ;
+            
+        }
+        
+        function calcamountfirst ( onepievalue ) {
+            var theonepievalue = Number(theonepievalue);
+            var result = glogalnumberofpies * theonepievalue;
+            console.log(result);            
+            return result;
+        }
+        
+        function updatechart ( amount ) {            
+            var multiplyer = amount;
+            calcamount ( 2.5 , "pajSemper" );
+            calcamount ( 0.5 , "pajKokosmjöl" );
+            calcamount ( 150 , "pajsmör" );
+            calcamount ( 0.5 , "pajsalt" );
+            calcamount ( 0.5 , "pajströsocker" );
+            calcamount ( 2 , "pajvatten" );   
+            
+            calcamount ( 2 , "fyllsemper" );
+            calcamount ( 125 , "fyllsmör" );
+            calcamount ( 1.5 , "fyllströsocker" );
+            calcamount ( 0.5 , "fyllsalt" );
+            calcamount ( 3 , "fyllsirap" );
+            calcamount ( 2 , "fyllägg" );
+            calcamount ( 1 , "fyllvaniljsocker" );
+            calcamount ( 150 , "pecannotter" );
+            
+        }
+            function focusornot (){
+                var amuntfeild = document.getElementById("userInput");
+                amuntfeild.onfocus = function(){
+                    //alert("focus");
+                    if (amuntfeild.value == "Ange antalet pajer..."){
+                        amuntfeild.value = "";
+                    } 
+                };
+                amuntfeild.onblur = function(){
+                    //alert("onblur");
+                    if (amuntfeild.value == ""){
+                        amuntfeild.value = "Ange antalet pajer...";
+                    }
+                };
+            }
+            
+            window.onload = function() {
+               focusornot ();
+            }
+        
+    </script>
 </html>
 
