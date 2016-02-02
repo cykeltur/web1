@@ -12,6 +12,70 @@
         <link rel="stylesheet" href="../css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
+        
+        <script type="text/javascript">
+            var glogalnumberofpies = 1;            
+            updatechart(glogalnumberofpies);
+        function displayOutput() {
+            var input = document.getElementById("userInput").value;
+            if (input.length < 1 ) {
+                alert("Var vänlig att ange antalet pajer");
+                return;
+            }
+            var thenumber = Number(input);
+            if (isNaN(thenumber) ){
+                alert("Ange ett antal i siffror");
+            }   else{
+                if (thenumber>10 ){
+                    alert("alldeles för många pajer!");
+                }
+                else{
+                    glogalnumberofpies = thenumber;
+                    updatechart(thenumber);
+                    document.getElementById("numberofpaj").innerHTML = input + " pajer";                    
+                    }
+            }   
+        }
+            
+        function calcamount ( onepievalue,iditem ) {
+            var theonepievalue = Number(onepievalue);
+            var result = glogalnumberofpies * theonepievalue;
+            console.log(result);            
+            document.getElementById(iditem).innerHTML = result ;
+            
+        }
+        
+        function calcamountfirst ( onepievalue ) {
+            var theonepievalue = Number(theonepievalue);
+            var result = glogalnumberofpies * theonepievalue;
+            console.log(result);            
+            return result;
+        }
+        
+        function updatechart ( amount ) {            
+            var multiplyer = amount;
+            calcamount ( 2.5 , "pajSemper" );
+            calcamount ( 0.5 , "pajKokosmjöl" );
+            calcamount ( 150 , "pajsmör" );
+            calcamount ( 0.5 , "pajsalt" );
+            calcamount ( 0.5 , "pajströsocker" );
+            calcamount ( 2 , "pajvatten" );   
+            
+            calcamount ( 2 , "fyllsemper" );
+            calcamount ( 125 , "fyllsmör" );
+            calcamount ( 1.5 , "fyllströsocker" );
+            calcamount ( 0.5 , "fyllsalt" );
+            calcamount ( 3 , "fyllsirap" );
+            calcamount ( 2 , "fyllägg" );
+            calcamount ( 1 , "fyllvaniljsocker" );
+            calcamount ( 150 , "pecannotter" );
+            
+        }
+            
+        
+        
+
+    </script>
        
     </head>
     <body>
@@ -37,32 +101,34 @@
             intro
         -->
         
-        <p > Receptet!
-            <br />
-            
+        <p > 
+            <span id="result">Receptet!</span>
+    <input type="text" id="userInput" autofocus value = "Ange antalet pajer..." />
+    <input class="btn" type="submit" value="Kalkulera" onclick="displayOutput()" /> 
+             Räknar på : <span id="numberofpaj">1 paj</span>
             <div class="container1">
                 <div class="leftbox">
                     <ul>
                         Pajskal
-                        <li>2,5 dl Semper - fin mjölmix</li>
-                        <li>0,5 dl Kokosmjöl</li>
-                        <li>150 g smör</li>
-                        <li>0,5 tsk salt</li>
-                        <li>0,5 dl strösocker</li>
-                        <li>2 msk vatten</li>
+                        <li><span id="pajSemper">2.5</span> dl Semper - fin mjölmix</li>
+                        <li><span id="pajKokosmjöl">0.5</span> dl Kokosmjöl</li>
+                        <li><span id="pajsmör">150 </span> g smör</li>
+                        <li><span id="pajsalt">0.5</span> tsk salt</li>
+                        <li><span id="pajströsocker">0.5</span> dl strösocker</li>
+                        <li><span id="pajvatten">2</span> msk vatten</li>
                     </ul>
                 </div>
                 <div class="rightbox">
                     <ul>
                         Fyllning
-                        <li>2 msk Semper - fin mjölmix</li>
-                        <li>125 gr smör</li>
-                        <li>1,5 dl strösocker</li>
-                        <li>0,5 tsk salt</li>
-                        <li>3 dl ljus sirap</li>
-                        <li>2 ägg (lätt vispade)</li>
-                        <li>1 tsk vaniljsocker</li>
-                        <li>150 g pecannötter</li>
+                        <li><span id="fyllsemper">2</span> msk Semper - fin mjölmix</li>
+                        <li><span id="fyllsmör">125</span> gr smör</li>
+                        <li><span id="fyllströsocker">1.5</span> dl strösocker</li>
+                        <li><span id="fyllsalt">0.5</span> tsk salt</li>
+                        <li><span id="fyllsirap">3</span> dl ljus sirap</li>
+                        <li><span id="fyllägg">2</span> ägg (lätt vispade)</li>
+                        <li><span id="fyllvaniljsocker">1</span> tsk vaniljsocker</li>
+                        <li><span id="pecannotter">150</span> g pecannötter</li>
                     </ul>
                 </div>
         </div>
