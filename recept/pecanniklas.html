@@ -9,10 +9,10 @@
         <link rel="stylesheet" href="../css/mainrecept.css">
         
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
-        
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
 
        
     </head>
@@ -45,9 +45,10 @@
             
     <input class="btn" type="submit" value="Kalkulera" onclick="displayOutput()" /> 
              Räknar på : <span id="numberofpaj">1 paj</span>
+            <div class="hideOrNot">
             <div class="container1">
                 <div class="leftbox">
-                    <ul>
+                    <ul id="paj">
                         Pajskal
                         <li><span id="pajSemper">2.5</span> dl Semper - fin mjölmix</li>
                         <li><span id="pajKokosmjöl">0.5</span> dl Kokosmjöl</li>
@@ -58,7 +59,7 @@
                     </ul>
                 </div>
                 <div class="rightbox">
-                    <ul>
+                    <ul id="fyllning">
                         Fyllning
                         <li><span id="fyllsemper">2</span> msk Semper - fin mjölmix</li>
                         <li><span id="fyllsmör">125</span> gr smör</li>
@@ -71,7 +72,7 @@
                     </ul>
                 </div>
         </div>
-       
+        </div>
         </p>
     
         
@@ -123,7 +124,14 @@
                 }
                 else{
                     glogalnumberofpies = thenumber;
+                    //animation out :-)
+                    //$("ul").hide(1000);
+                    $('.hideOrNot').hide(500);
+                    //do the calc
                     updatechart(thenumber);
+                    //animation in :-)
+                    //$("ul").show(1000);
+                    $('.hideOrNot').show(500);
                     document.getElementById("numberofpaj").innerHTML = input + " pajer";                    
                     }
             }   
