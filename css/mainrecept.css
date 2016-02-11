@@ -4,16 +4,19 @@ html {
 }
 
 body {
-    margin: auto auto;
-    padding: 2em 2em 4em;
+    margin: 0 auto;
+    padding: 1em 2em 4em;
     max-width: 800px;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
     line-height: 1.5em;
-    color: #545454;
+    color: #000000;
     background-color: #ffffff;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.06);
+    
+    
 }
+
 
 h1, h2, h3, h4, h5, h6 {
     color: #225;
@@ -38,8 +41,9 @@ b, strong {
 }
 
 .center {
-     align-items: center;
-    text-align: center;
+     
+    margin: 0 auto;
+    max-width: 800px;
 }
 button{
     border: 3px solid red;
@@ -53,9 +57,9 @@ button{
 .container1 {
   float: center;
   clear: both;
+    margin: 2 auto;
+    padding: 2em 2em 
   width: 100%; /* fills its parent */
-    padding-bottom: 3%;
-  
 }
 
 .leftbox{
@@ -126,5 +130,8 @@ img {
   text-decoration: none;
 }
 
+footer{
+    float: right;
+}
 
 }
