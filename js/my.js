@@ -1,7 +1,8 @@
 
 //____________
-var alert,siteVote;
-
+var alert, siteVote = 2, $;
+alert("siteVote =" + siteVote);
+//funk1
 function focusornot() {
     'use strict';
     var amuntfeild = document.getElementById("userInput");
@@ -21,6 +22,7 @@ function focusornot() {
 
 //------------
 var glogalnumberofpies = 1;
+//funk2
 function calcamount(onepievalue, iditem) {
     'use strict';
     //var theonepievalue = Number(onepievalue);
@@ -29,7 +31,7 @@ function calcamount(onepievalue, iditem) {
     //console.log(result);
     document.getElementById(iditem).innerHTML = result;
 }
-
+//funk3
 function calcamountfirst(onepievalue) {
     'use strict';
     //var theonepievalue = Number(theonepievalue);
@@ -39,6 +41,7 @@ function calcamountfirst(onepievalue) {
     return result;
 }
 
+//funk4
 function updatechart(amount) {
     'use strict';
     var multiplyer = amount;
@@ -58,6 +61,7 @@ function updatechart(amount) {
     calcamount(150, "pecannotter");
 }
 
+//funk5
 function newDate() {
     'use strict';
     var today = new Date(),
@@ -79,7 +83,7 @@ function newDate() {
 //____________
 
 glogalnumberofpies = 1;
-updatechart(glogalnumberofpies);
+//funk6
 function displayOutput() {
     'use strict';
     var input = document.getElementById("userInput").value,
@@ -112,10 +116,9 @@ function displayOutput() {
     
 }
 
-
-
-
 //___________
+//funk7
+/*
 function loadXLMData() {
     'use strict';
     var theRequest, counter = 0;
@@ -126,6 +129,7 @@ function loadXLMData() {
         theRequest = new ActiveXObject("Microsoft.XMLHTTP");
         alert("IE");
     }
+    
     
     //var webPath = //"https://dl.dropboxusercontent.com/s/tsvriw11l8yansj/recepts.xml";
     //theRequest.open("GET", "https://dl.dropboxusercontent.com/s/tsvriw11l8yansj/recepts.xml", true); 
@@ -143,8 +147,10 @@ function loadXLMData() {
     };
     return theRequest;
 }
+*/
 
 
+//funk8
 function loadData(theElement) {
     'use strict';
     $(document).ready(function () {
@@ -170,6 +176,7 @@ function loadData(theElement) {
     });
 }
 
+//funk9
 function extractElements(array) {
     'use strict';
     $(array).find('name').each(function () {
@@ -185,6 +192,7 @@ function extractElements(array) {
     //alert(units);
 }
 
+//funk10
 function getNodeValue(obj, tag) {
     'use strict';
     return obj.getElementsByTagName(tag)[0].firstChild.nodeValue;
@@ -201,7 +209,7 @@ var s1 = document.getElementById("star1"),
     s5 = document.getElementById("star5");
 
 var theStar;
-
+//funk11
 function lightStar(number) {
     'use strict';
     if (number === 1) {
@@ -240,6 +248,7 @@ function lightStar(number) {
         s5.style.color = "red";
     }
 }
+//funk12
 function starHover(theStar) {
     'use strict';
     if (theStar === s1) {
@@ -264,22 +273,25 @@ function setSiteRating(RatingScoreResult, NumberOfRatingsResult) {
     'use strict';
     var theRScoreId = "RatingScore",//RatingScore ID
         theNOfRsId = "NumberOfRatings";//NumberOfReitings ID
-    document.getElementById(theRScoreId).innerHTML = RatingScoreResult;
-    document.getElementById(theNOfRsId).innerHTML = NumberOfRatingsResult;
-    alert("i setRating : " + RatingScoreResult)
-    if (RatingScoreResult == 1) {
+    if (RatingScoreResult === undefined) {
+        RatingScoreResult = 1;
+        alert("no valute in the RatingScoreResult, force to set it to: 1");
+    }
+    document.getElementById(theRScoreId).innerHTML = RatingScoreResult; //justerar endast siffran
+    document.getElementById(theNOfRsId).innerHTML = NumberOfRatingsResult;// justerar endast antalet..
+    if (RatingScoreResult === 1) {
         lightStar(1);
     }
-    if (RatingScoreResult == 2) {
+    if (RatingScoreResult === 2) {
         lightStar(2);
     }
-    if (RatingScoreResult == 3) {
+    if (RatingScoreResult === 3) {
         lightStar(3);
     }
-    if (RatingScoreResult == 4) {
+    if (RatingScoreResult === 4) {
         lightStar(4);
     }
-    if (RatingScoreResult == 5) {
+    if (RatingScoreResult === 5) {
         lightStar(5);
     }
 }
@@ -289,9 +301,34 @@ function loadRatingPointsStart() {
     //alert("here shoult the reiting be loaded");
     var demoRatingScore = 3,
         demoNumberOfRatings = 30;
+    siteVote = demoRatingScore;
+    
+    alert("siteVote (loadRatingPointsStart) =" + siteVote);
+    alert("loadRatingPointsStart : " + demoRatingScore);
     setSiteRating(demoRatingScore, demoNumberOfRatings);
 }
-
+function getNoVotes() {
+    'use strict';
+    return 31;
+    
+}
+function getVoteValue() {
+    'use strict';
+    if (siteVote === undefined) {
+        return 3;
+    } else {
+        return siteVote;
+    }
+}
+    
+function loadRatingPointsFromServer(vote) {
+    'use strict';
+    siteVote = vote;
+    alert("siteVote (loadRatingPointsFromServer) =" + siteVote);
+    alert("loadRatingPointsFromServer : " + vote + "and sitevote: " + siteVote);
+    var noOfVotes = getNoVotes(), voteValue = getVoteValue();
+    setSiteRating(voteValue, noOfVotes);
+}
 function starOut(theStar) {
     'use strict';
     if (theStar === s1) {
@@ -330,6 +367,7 @@ function starOut(theStar) {
         s4.style.color = "silver";
         s5.style.color = "silver";
     }
+    //alert("from starout = " + siteVote);
     loadRatingPointsFromServer(siteVote);
 }
 
@@ -352,11 +390,7 @@ function starLight(TheStar) { //mousedownClick
     }
 }
 
-function loadRatingPointsFromServer(vote) {
-    'use strict';
-    siteVote = vote;
-    setSiteRating(vote, 31);
-}
+
 
 function sendVote(userVote) {
     'use strict';
@@ -384,8 +418,9 @@ function starClick(theStar) {
     if (theStar === s5) {
         vote = 5;
     }
+    alert("send from starclick: " + vote);
     sendVote(vote);
-    loadRatingPointsFromServer();
+    loadRatingPointsFromServer(vote);
 }
 
 
@@ -416,6 +451,8 @@ window.onload = function () {
     loadData('pajskal');
     loadData('fyllning');
     loadRatingPointsStart();
+    
+    updatechart(glogalnumberofpies);
     /* 
     var x=loadXLMData();
     var xml=x.responseXML;
