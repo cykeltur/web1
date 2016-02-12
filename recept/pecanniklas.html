@@ -39,14 +39,35 @@
         <h2>Detta är din guide till den bästa bjudpajen någonsin!</h2>
         
         <!-- intro -->
-        
-        <section id = "partContentListings" >
+          
+    
+    <section id = "amountCalc">
             <p> 
                 <span id="result"></span>
                 <input type="text" value="Ange antalet pajer..."  name="userInput" id="userInput"/>
                 <input class="btn" type="submit" value="Kalkulera" onclick="displayOutput()" /> 
                 Räknar på : <span id="numberofpaj">1 paj</span>
             </p>
+        </section>
+        
+        <!-- RATINGS 5 star hearts-->
+        <section class = "ratings">
+            Sätt betyg: 
+            <span id = "star1" class="glyphicon glyphicon-heart" 
+                         onmouseover="starHover(this)" onmouseout="starOut(this)" onmouseup="starClick(this)" onmousedown="starLight(this)" style="color:green"></span>
+            <span id = "star2" class="glyphicon glyphicon-heart" 
+                         onmouseover="starHover(this)" onmouseout="starOut(this)" onmouseup="starClick(this)" onmousedown="starLight(this)" style="color:silver"></span>
+            <span id = "star3" class="glyphicon glyphicon-heart" 
+                         onmouseover="starHover(this)" onmouseout="starOut(this)" onmouseup="starClick(this)" onmousedown="starLight(this)" style="color:silver"></span>
+            <span id = "star4" class="glyphicon glyphicon-heart" 
+                         onmouseover="starHover(this)" onmouseout="starOut(this)" onmouseup="starClick(this)" onmousedown="starLight(this)" style="color:silver"></span>
+            <span id = "star5" class="glyphicon glyphicon-heart" 
+                         onmouseover="starHover(this)" onmouseout="starOut(this)" onmouseup="starClick(this)" onmousedown="starLight(this)" style="color:silver"></span>
+             poäng: <span id = "RatingScore">0</span> 
+             (antal röster: <span id = "NumberOfRatings">0</span>st)
+        </section>
+        
+    <section id = "partContentListings" >
             <div class="hideOrNot">
                 <div class="container1">
                     <div class="leftbox">

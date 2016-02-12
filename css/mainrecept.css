@@ -134,4 +134,11 @@ footer{
     float: right;
 }
 
+.ratings {
+    cursor: hand;
+    
+    display: inline-block;
+}
+
+
 }
