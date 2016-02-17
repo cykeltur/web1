@@ -441,17 +441,6 @@ function sendVote(userVote) {
     loadRatingPointsFromServer(userVote);
 }
 
-function setVotingImageVisible(id, visible) {
-    'use strict';
-    var img = document.getElementById(id);
-    //img.style.visibility = (visible ? 'visible' : 'hidden');
-    if (visible) {
-        $(img).show(100);
-    } else {
-        $(img).hide(100);
-    }
-}
-
 
 function starClick(theStar) {
     'use strict';
@@ -472,14 +461,8 @@ function starClick(theStar) {
         vote = 5;
     }
     alert("send from starclick: " + vote);
-    setVotingImageVisible('votingImage', true);
     sendVote(vote);
     loadRatingPointsFromServer(vote);
-    setTimeout(function(){ 
-     setVotingImageVisible('votingImage', false);
-    },3000);  // put the timeout here
-    //setVotingImageVisible('votingImage', false);
-    
 }
 
 
@@ -528,13 +511,11 @@ function getLastSessionAmount() {
 window.onload = function () {
     'use strict';
     //alert("in onload");
-    
-    setVotingImageVisible('votingImage', false);
-    
     focusornot();
     loadData('pajskal');
     loadData('fyllning');
     loadRatingPointsStart();
+    
     updatechart(glogalnumberofpies);
     
     getLastSessionAmount();
