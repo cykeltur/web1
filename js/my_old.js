@@ -1,7 +1,7 @@
 
 //____________
 var alert, siteVote = 2, $;
-//alert("siteVote =" + siteVote);
+alert("siteVote =" + siteVote);
 //funk1
 function focusornot() {
     'use strict';
@@ -20,12 +20,6 @@ function focusornot() {
     };
 }
 
-//----------
-function setAmount(input) {
-    'use strict';
-    alert("saving input");
-    localStorage.portions = Number(input);
-}
 //------------
 var glogalnumberofpies = 1;
 //funk2
@@ -117,42 +111,6 @@ function displayOutput() {
             //$("ul").show(1000);
             $('.hideOrNot').show(500);
             document.getElementById("numberofpaj").innerHTML = input + " pajer";
-            setAmount(input);//save the value in local storage..
-        }
-    }
-    
-}
-
-// funk6b
-function setOutput(protionLasttime) {
-    'use strict';
-    //alert("inne i update");
-    var input = document.getElementById("userInput").value,
-        thenumber = Number(protionLasttime);
-    if (input.length < 1) {
-        //alert("Var vänlig att ange antalet pajer");
-        return;
-    }
-    
-    if (isNaN(thenumber)) {
-        //alert("Ange ett antal i siffror");
-    } else {
-        if (thenumber > 10) {
-            //alert("alldeles för många pajer!");
-        } else if (thenumber < 1) {
-            //alert("Vill du inte ens försöka baka en?!");
-        } else {
-            glogalnumberofpies = thenumber;
-            //animation out :-)
-            //$("ul").hide(1000);
-            $('.hideOrNot').hide(500);
-            //do the calc
-            updatechart(thenumber);
-            //animation in :-)
-            //$("ul").show(1000);
-            $('.hideOrNot').show(500);
-            document.getElementById("numberofpaj").innerHTML = Number(protionLasttime) + " pajer";
-            document.getElementById("userInput").value = Number(protionLasttime);
         }
     }
     
@@ -486,40 +444,15 @@ function starClick(theStar) {
 //}
 
 
-
-function getLastSessionAmount() {
-    'use strict';
-    if (typeof (Storage) !== "undefined") {
-        if (localStorage.portions) { //vi har data innan!
-            //alert("HAR localStore sedan innan... : " + Number(localStorage.portions));
-            //localStorage.portions;
-            document.getElementById("userInput").innerHTML = Number(localStorage.portions);
-            document.getElementById("numberofpaj").innerHTML = Number(localStorage.portions) + " pajer";
-            //displayOutput();
-            var protionLasttime = Number(localStorage.portions);
-            setOutput(protionLasttime);
-        } else {
-            localStorage.portions = 1;
-        //document.getElementById("userInput").innerHTML = localStorage.portions;
-        //document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
-            //alert("gör inget, har inget innan...");
-        }
-    }
-}
-
-
 window.onload = function () {
     'use strict';
-    //alert("in onload");
+    alert("in onload");
     focusornot();
     loadData('pajskal');
     loadData('fyllning');
     loadRatingPointsStart();
     
     updatechart(glogalnumberofpies);
-    
-    getLastSessionAmount();
-    
     /* 
     var x=loadXLMData();
     var xml=x.responseXML;
