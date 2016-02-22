@@ -44,7 +44,7 @@
     <section id = "amountCalc">
             <p> 
                 <span id="result"></span>
-                <input type="text" value="Ange antalet pajer..."  name="userInput" id="userInput"/>
+                <input type="text" value="Ange antalet pajer..." name="userInput" id="userInput" onmouseout="displayOutput()" onfocusout="displayOutput()" />
                 <input class="btn" type="submit" value="Kalkulera" onclick="displayOutput()" /> 
                 Räknar på : <span id="numberofpaj">1 paj</span>
             </p>

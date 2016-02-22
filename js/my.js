@@ -23,7 +23,7 @@ function focusornot() {
 //----------
 function setAmount(input) {
     'use strict';
-    alert("saving input");
+    //alert("saving input");
     localStorage.portions = Number(input);
 }
 //------------
@@ -82,7 +82,8 @@ function newDate() {
         mm = '0' + mm;
     }
     today = mm + '/' + dd + '/' + yyyy;
-    document.getElementById("date").innerHTML = today;
+    //document.getElementById("date").innerHTML = today;
+    $("#date").text(today);
     //d.toDateString();
 }
 
@@ -102,22 +103,24 @@ function displayOutput() {
     if (isNaN(thenumber)) {
         alert("Ange ett antal i siffror");
     } else {
-        if (thenumber > 10) {
-            alert("alldeles för många pajer!");
-        } else if (thenumber < 1) {
-            alert("Vill du inte ens försöka baka en?!");
-        } else {
-            glogalnumberofpies = thenumber;
-            //animation out :-)
-            //$("ul").hide(1000);
-            $('.hideOrNot').hide(500);
-            //do the calc
-            updatechart(thenumber);
-            //animation in :-)
-            //$("ul").show(1000);
-            $('.hideOrNot').show(500);
-            document.getElementById("numberofpaj").innerHTML = input + " pajer";
-            setAmount(input);//save the value in local storage..
+        if (thenumber !== glogalnumberofpies) {
+            if (thenumber > 10) {
+                alert("alldeles för många pajer!");
+            } else if (thenumber < 1) {
+                alert("Vill du inte ens försöka baka en?!");
+            } else {
+                glogalnumberofpies = thenumber;
+                //animation out :-)
+                //$("ul").hide(1000);
+                $('.hideOrNot').hide(500);
+                //do the calc
+                updatechart(thenumber);
+                //animation in :-)
+                //$("ul").show(1000);
+                $('.hideOrNot').show(500);
+                document.getElementById("numberofpaj").innerHTML = input + " pajer";
+                setAmount(input);//save the value in local storage..
+            }
         }
     }
     
@@ -151,7 +154,8 @@ function setOutput(protionLasttime) {
             //animation in :-)
             //$("ul").show(1000);
             $('.hideOrNot').show(500);
-            document.getElementById("numberofpaj").innerHTML = Number(protionLasttime) + " pajer";
+            //document.getElementById("numberofpaj").innerHTML = Number(protionLasttime) + " pajer";
+            $("#numberofpaj").text(Number(protionLasttime) + " pajer");
             document.getElementById("userInput").value = Number(protionLasttime);
         }
     }
@@ -160,6 +164,7 @@ function setOutput(protionLasttime) {
 
 //___________
 //funk7
+//
 /*
 function loadXLMData() {
     'use strict';
@@ -190,7 +195,11 @@ function loadXLMData() {
     return theRequest;
 }
 */
+//Visa receptbetyg
+//GET https://edu.oscarb.se/sjk15/api/recipe/?api_key=d7db3379c942dc44&recipe=pecanpaj
 
+// Rösta på ett recept
+// GET https://edu.oscarb.se/sjk15/api/recipe/?api_key=d7db3379c942dc44&recipe=pecanpaj&rating=4
 
 //funk8
 function loadData(theElement) {
@@ -207,7 +216,7 @@ function loadData(theElement) {
                         names = $(this).find('name').text(),
                         values = $(this).find('value').text(),
                         units = $(this).find('unit').text();
-                    alert(names);
+                    //alert(names);
                     // $("<li></li>").html(names + ", " + //values).appendTo("#dvContent ul");
                 });
 //                var array = $(xml).find(theElement).map(function() {
@@ -223,7 +232,7 @@ function extractElements(array) {
     'use strict';
     $(array).find('name').each(function () {
         var names = $(this).text();
-        alert("name: " + names);
+       // alert("name: " + names);
     });
     var values = $(array).find('value').map(function () {
         return this.outerHTML; // to get the techjob
@@ -317,37 +326,69 @@ function setSiteRating(RatingScoreResult, NumberOfRatingsResult) {
         theNOfRsId = "NumberOfRatings";//NumberOfReitings ID
     if (RatingScoreResult === undefined) {
         RatingScoreResult = 1;
-        alert("no valute in the RatingScoreResult, force to set it to: 1");
+        //alert("no valute in the RatingScoreResult, force to set it to: 1");
     }
-    document.getElementById(theRScoreId).innerHTML = RatingScoreResult; //justerar endast siffran
+    document.getElementById(theRScoreId).innerHTML = parseFloat(RatingScoreResult).toFixed(2); //justerar endast siffran
     document.getElementById(theNOfRsId).innerHTML = NumberOfRatingsResult;// justerar endast antalet..
-    if (RatingScoreResult === 1) {
+    //alert("this is the rating" + RatingScoreResult);
+    var voteUp = Math.floor(RatingScoreResult + 0.5);
+    //alert(voteUp);
+    if (voteUp == 1) {
         lightStar(1);
     }
-    if (RatingScoreResult === 2) {
+    if (voteUp == 2) {
         lightStar(2);
     }
-    if (RatingScoreResult === 3) {
+    if (voteUp == 3) {
         lightStar(3);
     }
-    if (RatingScoreResult === 4) {
+    if (voteUp == 4) {
         lightStar(4);
     }
-    if (RatingScoreResult === 5) {
+    if (voteUp >= 5) {
         lightStar(5);
     }
 }
 
 function loadRatingPointsStart() {
     'use strict';
-    //alert("here shoult the reiting be loaded");
-    var demoRatingScore = 3,
-        demoNumberOfRatings = 30;
-    siteVote = demoRatingScore;
+    var recipe, numberOfvotes = -1, rating = -1, loadDone = false;
+
+    //-------------
+    $(document).ready(function () {
+        $.getJSON("https://edu.oscarb.se/sjk15/api/recipe/?api_key=d7db3379c942dc44&recipe=pecanpaj", function (inData) {
+            //$.each(result, function (inData) {
+            recipe = inData.recipe;
+            numberOfvotes = inData.votes;
+            rating = inData.rating;
+            //alert("receptet : " + recipe);
+            loadDone = true;
+            if (numberOfvotes === -1 || rating === -1) {
+                setSiteRating(5, 1);
+            }
+            if (numberOfvotes !== -1 || rating !== -1) {
+                LocalvotefromData = rating;
+                LocalNumberOfvotesfromData = numberOfvotes;
+                setSiteRating(rating, numberOfvotes);
+            }
+            //});
+        });
+    });
+    //-------------
     
-    alert("siteVote (loadRatingPointsStart) =" + siteVote);
-    alert("loadRatingPointsStart : " + demoRatingScore);
-    setSiteRating(demoRatingScore, demoNumberOfRatings);
+    //while (!loadDone){
+        
+    //}
+    loadDone = false;
+    //setSiteRating(rating, numberOfvotes);
+    
+    //alert("here shoult the reiting be loaded");
+   // var demoRatingScore = 3,
+//        demoNumberOfRatings = 30,
+//        siteVote = demoRatingScore;
+    //alert("siteVote (loadRatingPointsStart) =" + siteVote);
+    //alert("loadRatingPointsStart : " + demoRatingScore);
+    //setSiteRating(demoRatingScore, demoNumberOfRatings);
 }
 function getNoVotes() {
     'use strict';
@@ -362,15 +403,87 @@ function getVoteValue() {
         return siteVote;
     }
 }
-    
+
+function setVotingImageVisible(id, visible) {
+    'use strict';
+    var img = document.getElementById(id);
+    //img.style.visibility = (visible ? 'visible' : 'hidden');
+    if (visible) {
+        $(img).show(100);
+    } else {
+        $(img).hide(100);
+    }
+}
+
+var LocalvotefromData = 1, LocalNumberOfvotesfromData = 1;
+
 function loadRatingPointsFromServer(vote) {
     'use strict';
     siteVote = vote;
-    alert("siteVote (loadRatingPointsFromServer) =" + siteVote);
-    alert("loadRatingPointsFromServer : " + vote + "and sitevote: " + siteVote);
-    var noOfVotes = getNoVotes(), voteValue = getVoteValue();
-    setSiteRating(voteValue, noOfVotes);
+    
+    var voteLink = "https://edu.oscarb.se/sjk15/api/recipe/?api_key=d7db3379c942dc44&recipe=pecanpaj&rating=" + siteVote,
+        recipe,
+        numberOfvotes = -1,
+        rating = -1,
+        status = "no";
+    
+    //alert(voteLink);
+    //alert("siteVote (loadRatingPointsFromServer) =" + siteVote);
+    //alert("loadRatingPointsFromServer : " + vote + "and sitevote: " + siteVote);
+    
+    //setTimeout(function () {
+    setVotingImageVisible('votingImage', true);
+    //}, 3000);  // put the timeout here
+    //setVotingImageVisible('votingImage', false);
+    
+    //alert("röstar eller.. " + siteVote);
+    //--------set vote-----
+    $(document).ready(function () {
+        $.getJSON("https://edu.oscarb.se/sjk15/api/recipe/?api_key=d7db3379c942dc44&recipe=pecanpaj&rating=" + siteVote, function (theVote) {
+            status = theVote.status;
+            if (status === "ok") {
+                //stop pic loader 
+    //            alert("röstat");
+                setVotingImageVisible('votingImage', false);
+            }
+            if (status !== "ok") {
+                //start pic loader  
+                //setVotingImageVisible('votingImage', true);
+            }
+    //});
+        });
+    });
+    //-------------
+    
+    
+    //--------load result-----
+    $(document).ready(function () {
+        $.getJSON("https://edu.oscarb.se/sjk15/api/recipe/?api_key=d7db3379c942dc44&recipe=pecanpaj", function (inData) {
+            //$.each(result, function (inData) {
+            recipe = inData.recipe;
+            numberOfvotes = inData.votes;
+            rating = inData.rating;
+            LocalvotefromData = rating;
+            LocalNumberOfvotesfromData = numberOfvotes;
+            if (numberOfvotes === -1 || rating === -1) {
+                setSiteRating(siteVote, 1);
+            }
+            if (numberOfvotes !== -1 || rating !== -1) {
+                setSiteRating(rating, numberOfvotes);
+            }
+            //});
+        });
+    });
+    //-------------
+    //setSiteRating(voteValue, noOfVotes);
 }
+
+
+function loadRatingPointsFromLocalVar(){
+    setSiteRating(LocalvotefromData, LocalNumberOfvotesfromData);
+    
+}
+
 function starOut(theStar) {
     'use strict';
     if (theStar === s1) {
@@ -410,7 +523,8 @@ function starOut(theStar) {
         s5.style.color = "silver";
     }
     //alert("from starout = " + siteVote);
-    loadRatingPointsFromServer(siteVote);
+    
+    loadRatingPointsFromLocalVar();
 }
 
 function starLight(TheStar) { //mousedownClick
@@ -437,20 +551,11 @@ function starLight(TheStar) { //mousedownClick
 function sendVote(userVote) {
     'use strict';
     //update the vote on server..
-    alert(userVote);
-    loadRatingPointsFromServer(userVote);
+    //alert(userVote);
+    //loadRatingPointsFromServer(userVote);
 }
 
-function setVotingImageVisible(id, visible) {
-    'use strict';
-    var img = document.getElementById(id);
-    //img.style.visibility = (visible ? 'visible' : 'hidden');
-    if (visible) {
-        $(img).show(100);
-    } else {
-        $(img).hide(100);
-    }
-}
+
 
 
 function starClick(theStar) {
@@ -471,13 +576,13 @@ function starClick(theStar) {
     if (theStar === s5) {
         vote = 5;
     }
-    alert("send from starclick: " + vote);
-    setVotingImageVisible('votingImage', true);
-    sendVote(vote);
+    //alert("send from starclick: " + vote);
+    //setVotingImageVisible('votingImage', true);
+    //sendVote(vote);
     loadRatingPointsFromServer(vote);
-    setTimeout(function(){ 
-     setVotingImageVisible('votingImage', false);
-    },3000);  // put the timeout here
+    //setTimeout(function () {
+    //    setVotingImageVisible('votingImage', false);
+    //}, 3000);  // put the timeout here
     //setVotingImageVisible('votingImage', false);
     
 }
@@ -528,12 +633,13 @@ function getLastSessionAmount() {
 window.onload = function () {
     'use strict';
     //alert("in onload");
-    
+    //newDate();
     setVotingImageVisible('votingImage', false);
     
     focusornot();
-    loadData('pajskal');
-    loadData('fyllning');
+    //loadData('pajskal');
+    //loadData('fyllning');
+    //alert("snart ajax");
     loadRatingPointsStart();
     updatechart(glogalnumberofpies);
     
