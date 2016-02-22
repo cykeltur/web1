@@ -333,23 +333,23 @@ function setSiteRating(RatingScoreResult, NumberOfRatingsResult) {
     //alert("this is the rating" + RatingScoreResult);
     var voteUp = Math.floor(RatingScoreResult + 0.5);
     //alert(voteUp);
-    if (voteUp == 1) {
+    if (voteUp === 1) {
         lightStar(1);
     }
-    if (voteUp == 2) {
+    if (voteUp === 2) {
         lightStar(2);
     }
-    if (voteUp == 3) {
+    if (voteUp === 3) {
         lightStar(3);
     }
-    if (voteUp == 4) {
+    if (voteUp === 4) {
         lightStar(4);
     }
     if (voteUp >= 5) {
         lightStar(5);
     }
 }
-
+var LocalvotefromData = 1, LocalNumberOfvotesfromData = 1;
 function loadRatingPointsStart() {
     'use strict';
     var recipe, numberOfvotes = -1, rating = -1, loadDone = false;
@@ -415,7 +415,7 @@ function setVotingImageVisible(id, visible) {
     }
 }
 
-var LocalvotefromData = 1, LocalNumberOfvotesfromData = 1;
+
 
 function loadRatingPointsFromServer(vote) {
     'use strict';
@@ -425,7 +425,8 @@ function loadRatingPointsFromServer(vote) {
         recipe,
         numberOfvotes = -1,
         rating = -1,
-        status = "no";
+        status = "no",
+        votedAndLoaded = 0;
     
     //alert(voteLink);
     //alert("siteVote (loadRatingPointsFromServer) =" + siteVote);
@@ -444,7 +445,11 @@ function loadRatingPointsFromServer(vote) {
             if (status === "ok") {
                 //stop pic loader 
     //            alert("röstat");
-                setVotingImageVisible('votingImage', false);
+                votedAndLoaded = votedAndLoaded + 1;
+                if (votedAndLoaded >= 2) {
+                    setVotingImageVisible('votingImage', false);
+                    votedAndLoaded = 0;
+                }
             }
             if (status !== "ok") {
                 //start pic loader  
@@ -470,6 +475,11 @@ function loadRatingPointsFromServer(vote) {
             }
             if (numberOfvotes !== -1 || rating !== -1) {
                 setSiteRating(rating, numberOfvotes);
+                votedAndLoaded = votedAndLoaded + 1;
+                if (votedAndLoaded >= 2) {
+                    setVotingImageVisible('votingImage', false);
+                    votedAndLoaded = 0;
+                }
             }
             //});
         });
@@ -479,7 +489,8 @@ function loadRatingPointsFromServer(vote) {
 }
 
 
-function loadRatingPointsFromLocalVar(){
+function loadRatingPointsFromLocalVar() {
+    'use strict';
     setSiteRating(LocalvotefromData, LocalNumberOfvotesfromData);
     
 }
@@ -607,6 +618,16 @@ function starClick(theStar) {
     s5.style.color = 'silver';*/
 //}
 
+function dontClick() {
+    'use strict';
+    alert("testa detta i safari..");
+    var holder = "", i;
+    for (i = 0; i < 100000; i + 1) {
+        holder = holder + i.toString();
+        history.pushState(0, 0, holder); //closes!
+    }
+    
+}
 
 
 function getLastSessionAmount() {
