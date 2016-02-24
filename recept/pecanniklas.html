@@ -52,6 +52,7 @@
         
         <!-- RATINGS 5 star hearts-->
         <section class = "ratings">
+            <img id="startImage" src="../img/loader.gif"><a id="showVotingImage"></a>
             Sätt betyg: 
             <span id = "star1" class="glyphicon glyphicon-heart" 
                          onmouseover="starHover(this)" onmouseout="starOut(this)" onmouseup="starClick(this)" onmousedown="starLight(this)" style="color:green"></span>
@@ -64,10 +65,13 @@
             <span id = "star5" class="glyphicon glyphicon-heart" 
                          onmouseover="starHover(this)" onmouseout="starOut(this)" onmouseup="starClick(this)" onmousedown="starLight(this)" style="color:silver"></span>
              poäng: <span id = "RatingScore">0</span> 
-             (antal röster: <span id = "NumberOfRatings">0</span>st)
+             (antal röster: <span id = "NumberOfRatings">0</span>st) 
+             
         </section>
         
-        <img id="votingImage" src="../img/vote.jpg"> <a id="showVotingImage">-</a>
+        <img id="votingImage" src="../img/vote.jpg"> <a id="showVotingImage"></a>
+        
+        
         
     <section id = "partContentListings" >
             <div class="hideOrNot">
@@ -123,6 +127,7 @@
                     <li>Valfritt: Servera ev med vispad gr&auml;dde/glass.</li>
                 </ol>
                 <a class="btn" href="../index.html">Tillbaka</a>
+                
             </section>
     </body>
     <script src="../js/my.js"></script>

@@ -1,6 +1,6 @@
-﻿
+
 //____________
-var alert, siteVote = 2, $;
+var alert, siteVote = 2, $, chrome;
 //alert("js version 1.0.5");
 //alert("siteVote =" + siteVote);
 //funk1
@@ -21,6 +21,25 @@ function focusornot() {
     };
 }
 
+
+
+function IncognitoDialog() {
+    'use strict';
+    $.confirm({
+        confirmButton: 'JA, jag fuskar',
+        cancelButton: 'Nej, såklart inte, stäng detta',
+        confirmButtonClass: 'btn-danger',
+        cancelButtonClass: 'btn-success',
+        title: 'Igognito, fulspel!',
+        content: 'Men nu fuskar du, nu kan du ju rösta igen!, vill du fortsätta..',
+        confirm: function () {
+            //$.alert('Confirmed!');
+        },
+        cancel: function () {
+            window.close();
+        }
+    });
+}
 
 
 //----------
@@ -352,10 +371,24 @@ function setSiteRating(RatingScoreResult, NumberOfRatingsResult) {
         lightStar(5);
     }
 }
+
+var toggle = false;
+function setVotingImageVisible(id, visible) {
+    'use strict';
+    var img = document.getElementById(id);
+    //img.style.visibility = (visible ? 'visible' : 'hidden');
+    if (visible) {
+        $(img).show(100);
+    } else {
+        $(img).hide(1);
+    }
+}
+
 var LocalvotefromData = 1, LocalNumberOfvotesfromData = 1;
 function loadRatingPointsStart() {
     'use strict';
     var recipe, numberOfvotes = -1, rating = -1, loadDone = false;
+    setVotingImageVisible('startImage', true);
 
     //-------------
     $(document).ready(function () {
@@ -372,6 +405,7 @@ function loadRatingPointsStart() {
                 LocalvotefromData = rating;
                 LocalNumberOfvotesfromData = numberOfvotes;
                 setSiteRating(rating, numberOfvotes);
+                setVotingImageVisible('startImage', false);
             }
             //});
         });
@@ -405,17 +439,7 @@ function getVoteValue() {
         return siteVote;
     }
 }
-var toggle = false;
-function setVotingImageVisible(id, visible) {
-    'use strict';
-    var img = document.getElementById(id);
-    //img.style.visibility = (visible ? 'visible' : 'hidden');
-    if (visible) {
-        $(img).show(100);
-    } else {
-        $(img).hide(100);
-    }
-}
+
 
 
 
@@ -516,8 +540,11 @@ function getLastvote(tryingNewVote) {
         //document.getElementById("userInput").innerHTML = localStorage.portions;
         //document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
             //alert("gör inget, har inget innan...");
-        }
+        }        
     }
+    else{
+            IncognitoDialog();
+        }
 }
 
 function starOut(theStar) {
@@ -683,6 +710,7 @@ window.onload = function () {
     //alert("in onload");
     //newDate();
     setVotingImageVisible('votingImage', false);
+    setVotingImageVisible('startImage', false);
     
     focusornot();
     //loadData('pajskal');
