@@ -1,6 +1,7 @@
-
+﻿
 //____________
 var alert, siteVote = 2, $;
+//alert("js version 1.0.5");
 //alert("siteVote =" + siteVote);
 //funk1
 function focusornot() {
@@ -19,6 +20,8 @@ function focusornot() {
         }
     };
 }
+
+
 
 //----------
 function setAmount(input) {
@@ -358,7 +361,6 @@ function loadRatingPointsStart() {
     $(document).ready(function () {
         $.getJSON("https://edu.oscarb.se/sjk15/api/recipe/?api_key=d7db3379c942dc44&recipe=pecanpaj", function (inData) {
             //$.each(result, function (inData) {
-            recipe = inData.recipe;
             numberOfvotes = inData.votes;
             rating = inData.rating;
             //alert("receptet : " + recipe);
@@ -403,7 +405,7 @@ function getVoteValue() {
         return siteVote;
     }
 }
-
+var toggle = false;
 function setVotingImageVisible(id, visible) {
     'use strict';
     var img = document.getElementById(id);
@@ -492,7 +494,30 @@ function loadRatingPointsFromServer(vote) {
 function loadRatingPointsFromLocalVar() {
     'use strict';
     setSiteRating(LocalvotefromData, LocalNumberOfvotesfromData);
-    
+}
+
+function getLastvote(tryingNewVote) {
+    'use strict';
+    if (typeof (Storage) !== "undefined") {
+        if (localStorage.uservote) { //vi har data innan!
+            //alert("HAR localStore sedan innan... : " + Number(localStorage.portions));
+            //localStorage.portions;
+            //document.getElementById("userInput").innerHTML = Number(localStorage.portions);
+            //document.getElementById("numberofpaj").innerHTML = Number(localStorage.portions) + " pajer";
+            //displayOutput();
+            var lastVote = Number(localStorage.uservote);
+            alert("man kan bara rösta en gång, du satte en " + lastVote + "sist..");
+            return false;
+        } else {
+            alert("Nu har du röstat för sista gången här, typ.. ");
+            localStorage.uservote = tryingNewVote;
+            loadRatingPointsFromLocalVar();
+            return true;
+        //document.getElementById("userInput").innerHTML = localStorage.portions;
+        //document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
+            //alert("gör inget, har inget innan...");
+        }
+    }
 }
 
 function starOut(theStar) {
@@ -590,7 +615,9 @@ function starClick(theStar) {
     //alert("send from starclick: " + vote);
     //setVotingImageVisible('votingImage', true);
     //sendVote(vote);
-    loadRatingPointsFromServer(vote);
+    if (getLastvote(vote)) {
+        loadRatingPointsFromServer(vote);
+    }
     //setTimeout(function () {
     //    setVotingImageVisible('votingImage', false);
     //}, 3000);  // put the timeout here
