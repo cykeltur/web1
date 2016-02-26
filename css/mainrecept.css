@@ -33,7 +33,6 @@ a {
 }
 
 b, strong {
-    font-weight: 3em;
 }
 
 .hide {
@@ -55,11 +54,11 @@ button{
 }
 
 .container1 {
-  float: center;
+  float: none;
   clear: both;
-    margin: 2 auto;
-    padding: 2em 2em 
-  width: 100%; /* fills its parent */
+    margin: 2% auto;
+    padding: 2em 2em;
+    width: 100%; /* fills its parent */
 }
 
 .leftbox{

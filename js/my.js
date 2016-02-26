@@ -708,7 +708,7 @@ function getLastSessionAmount() {
 window.onload = function () {
     'use strict';
     //alert("in onload");
-    //newDate();
+    newDate();
     setVotingImageVisible('votingImage', false);
     setVotingImageVisible('startImage', false);
     
