@@ -79,7 +79,7 @@ button{
     height: 100%;
     color: white;
     background-image: url("../img/left.png");
-    background-repeat: repeat-y-x;
+    background-repeat: repeat;
        
   
 }
@@ -137,8 +137,6 @@ footer{
 }
 
 .ratings {
-    cursor: hand;
-    
     display: inline-block;
 }
 
@@ -163,6 +161,4 @@ footer{
         font: italic 11px Arial;
     }
     
-}
-
 }
