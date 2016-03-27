@@ -25,20 +25,20 @@ function focusornot() {
 
 function IncognitoDialog() {
     'use strict';
-    $.confirm({
-        confirmButton: 'JA, jag fuskar',
-        cancelButton: 'Nej, såklart inte, stäng detta',
-        confirmButtonClass: 'btn-danger',
-        cancelButtonClass: 'btn-success',
-        title: 'Igognito, fulspel!',
-        content: 'Men nu fuskar du, nu kan du ju rösta igen!, vill du fortsätta..',
-        confirm: function () {
-            //$.alert('Confirmed!');
-        },
-        cancel: function () {
-            window.close();
-        }
-    });
+//    $.confirm({
+//        confirmButton: 'JA, jag fuskar',
+//        cancelButton: 'Nej, såklart inte, stäng detta',
+//        confirmButtonClass: 'btn-danger',
+//        cancelButtonClass: 'btn-success',
+//        title: 'Igognito, fulspel!',
+//        content: 'Men nu fuskar du, nu kan du ju rösta igen!, vill du fortsätta..',
+//        confirm: function () {
+//            //$.alert('Confirmed!');
+//        },
+//        cancel: function () {
+//            window.close();
+//        }
+//    });
 }
 
 
@@ -185,38 +185,7 @@ function setOutput(protionLasttime) {
 }
 
 //___________
-//funk7
-//
-/*
-function loadXLMData() {
-    'use strict';
-    var theRequest, counter = 0;
-    if (window.XMLHttpRequest) {
-        theRequest = new XMLHttpRequest();
-        alert("firefox/crome/safari");
-    } else if (window.ActiveXObject) {
-        theRequest = new ActiveXObject("Microsoft.XMLHTTP");
-        alert("IE");
-    }
-    
-    
-    //var webPath = //"https://dl.dropboxusercontent.com/s/tsvriw11l8yansj/recepts.xml";
-    //theRequest.open("GET", "https://dl.dropboxusercontent.com/s/tsvriw11l8yansj/recepts.xml", true); 
-    //theRequest.open("GET", webPath, true);
-    //theRequest.open("GET", "recepts.xml", true);
-    //try {theRequest.responseType="msxml-document"} catch(err) {} // Helping IE
-    //theRequest.send("");//"null");
-    //alert("send?");
-    theRequest.onreadystatechange = function () {
-        if (theRequest.readyState === 4 && theRequest.status === 200) {
-            alert("in the state4 :-)");
-            //document.getElementById("XMLTest").innerHTML = theRequest.responseText;
-            //TheXMLFunction(theRequest);
-        }
-    };
-    return theRequest;
-}
-*/
+
 //Visa receptbetyg
 //GET https://edu.oscarb.se/sjk15/api/recipe/?api_key=d7db3379c942dc44&recipe=pecanpaj
 
@@ -324,32 +293,7 @@ function lightStar(number) {
 //funk12
 
 var theStar;
-/*function starHover(theStar) {    
-    'use strict';
-    var a = s1.html(); //theStar.html();
-    alert("in hover-funk!" + a );// + " and " + s1.html());
-    if (theStar === s1) {
-        alert("hover, star1");
-        lightStar(1);                
-    }
-    if (theStar === s2) {
-        alert("star2");
-        lightStar(2);
-    }
-    if (theStar === s3) {
-        alert("star3");
-        lightStar(3);
-    }
-    if (theStar === s4) {
-        alert("star4");
-        lightStar(4);
-    }
-    if (theStar === s5) {
-        alert("star5");
-        lightStar(5);
-    }
-}
-*/
+
 function setSiteRating(RatingScoreResult, NumberOfRatingsResult) {
     'use strict';
     var theRScoreId = "RatingScore",//RatingScore ID
@@ -358,8 +302,9 @@ function setSiteRating(RatingScoreResult, NumberOfRatingsResult) {
         RatingScoreResult = 1;
         //alert("no valute in the RatingScoreResult, force to set it to: 1");
     }
-    document.getElementById(theRScoreId).innerHTML = parseFloat(RatingScoreResult).toFixed(2); //justerar endast siffran
-    document.getElementById(theNOfRsId).innerHTML = NumberOfRatingsResult;// justerar endast antalet..
+    $("#RatingScore").html( parseFloat(RatingScoreResult).toFixed(2) ); 
+    //justerar endast siffran
+    $("#NumberOfRatings").html( NumberOfRatingsResult );// justerar endast antalet..
     //alert("this is the rating" + RatingScoreResult);
     var voteUp = Math.floor(RatingScoreResult + 0.5);
     //alert(voteUp);
@@ -383,7 +328,7 @@ function setSiteRating(RatingScoreResult, NumberOfRatingsResult) {
 var toggle = false;
 function setVotingImageVisible(id, visible) {
     'use strict';
-    var img = document.getElementById(id);
+    var img =  $('#'+id);
     
     if (visible) {
         $(img).show(100);
