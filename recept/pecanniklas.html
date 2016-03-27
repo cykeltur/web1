@@ -14,11 +14,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>        
+         <script src="../js/bootstrap.min.js"></script>      
         
         <link rel="stylesheet" href="../css/bootstrap.min.css">
-
-        <script src="./js/my.js"></script>       
+        
+             
     </head>
     <body class="center">
         <nav class="navbar navbar-inverse">             
@@ -45,7 +45,7 @@
             <p> 
                 <span id="result"></span>
                 <input type="text" value="Ange antalet pajer..." name="userInput" id="userInput" onmouseout="displayOutput()" />
-                <input class="btn" type="submit" value="Kalkulera" onclick="displayOutput()" /> 
+                <input class="btn" type="submit" value="Kalkylera" onclick="displayOutput()" /> 
                 Räknar på : <span id="numberofpaj">1 paj</span>
             </p>
         </section>
@@ -54,19 +54,14 @@
         <section class = "ratings">
             <img id="startImage" alt="loading.." src="../img/loader.gif"><a id="showLoadingImage"></a>
             Sätt betyg: 
-            <span id = "star1" class="glyphicon glyphicon-heart" 
-                         onmouseover="starHover(this)" onmouseout="starOut(this)" onmouseup="starClick(this)" onmousedown="starLight(this)" style="color:green"></span>
-            <span id = "star2" class="glyphicon glyphicon-heart" 
-                         onmouseover="starHover(this)" onmouseout="starOut(this)" onmouseup="starClick(this)" onmousedown="starLight(this)" style="color:silver"></span>
-            <span id = "star3" class="glyphicon glyphicon-heart" 
-                         onmouseover="starHover(this)" onmouseout="starOut(this)" onmouseup="starClick(this)" onmousedown="starLight(this)" style="color:silver"></span>
-            <span id = "star4" class="glyphicon glyphicon-heart" 
-                         onmouseover="starHover(this)" onmouseout="starOut(this)" onmouseup="starClick(this)" onmousedown="starLight(this)" style="color:silver"></span>
+            <span id = "star1" class="glyphicon glyphicon-heart" style="color:green"></span>
+            <span id = "star2" class="glyphicon glyphicon-heart"  style="color:silver"></span>
+            <span id = "star3" class="glyphicon glyphicon-heart"  style="color:silver"></span>
+            <span id = "star4" class="glyphicon glyphicon-heart" style="color:silver"></span>
             <span id = "star5" class="glyphicon glyphicon-heart" 
-                         onmouseover="starHover(this)" onmouseout="starOut(this)" onmouseup="starClick(this)" onmousedown="starLight(this)" style="color:silver"></span>
+            style="color:silver"></span>
              poäng: <span id = "RatingScore">0</span> 
-             (antal röster: <span id = "NumberOfRatings">0</span>st) 
-             
+             (antal röster: <span id = "NumberOfRatings">0</span>st)              
         </section>
         
         <img id="votingImage"  alt="Send vote.." src="../img/vote.jpg"> <a id="showVotingImage"></a>
@@ -129,9 +124,9 @@
                 <a class="btn" href="../index.html">Tillbaka</a>
                 
             </section>
-    <script src="../js/my.js"></script>
+     
     </body>
-    
+    <script src="../js/my.js"></script>
 
 
 </html>

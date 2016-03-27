@@ -1,6 +1,6 @@
 
 //____________
-var alert, siteVote = 2, $, chrome;
+var alert, siteVote = 2, chrome;
 //alert("js version 1.0.5");
 //alert("siteVote =" + siteVote);
 //funk1
@@ -275,73 +275,81 @@ function getNodeValue(obj, tag) {
 //hover the stares; section id = ratings
 
 
-var s1 = document.getElementById("star1"),
-    s2 = document.getElementById("star2"),
-    s3 = document.getElementById("star3"),
-    s4 = document.getElementById("star4"),
-    s5 = document.getElementById("star5");
+var s1 = $("#star1"),
+    s2 = $("#star2"),
+    s3 = $("#star3"),
+    s4 = $("#star4"),
+    s5 = $("#star5");
 
 var theStar;
 //funk11
 function lightStar(number) {
     'use strict';
     if (number === 1) {
-        s1.style.color = "red";
-        s2.style.color = "silver";
-        s3.style.color = "silver";
-        s4.style.color = "silver";
-        s5.style.color = "silver";
+        s1.css("color", "red");
+        s2.css("color", "silver");
+        s3.css("color", "silver");
+        s4.css("color", "silver");
+        s5.css("color", "silver");
     }
     if (number === 2) {
-        s1.style.color = "red";
-        s2.style.color = "red";
-        s3.style.color = "silver";
-        s4.style.color = "silver";
-        s5.style.color = "silver";
+        s1.css("color", "red");
+        s2.css("color", "red");
+        s3.css("color", "silver");
+        s4.css("color", "silver");
+        s5.css("color", "silver");
     }
     if (number === 3) {
-        s1.style.color = "red";
-        s2.style.color = "red";
-        s3.style.color = "red";
-        s4.style.color = "silver";
-        s5.style.color = "silver";
+        s1.css("color", "red");
+        s2.css("color", "red");
+        s3.css("color", "red");
+        s4.css("color", "silver");
+        s5.css("color", "silver");
     }
     if (number === 4) {
-        s1.style.color = "red";
-        s2.style.color = "red";
-        s3.style.color = "red";
-        s4.style.color = "red";
-        s5.style.color = "silver";
+        s1.css("color", "red");
+        s2.css("color", "red");
+        s3.css("color", "red");
+        s4.css("color", "red");
+        s5.css("color", "silver");
     }
-    if (number === 5) {
-        s1.style.color = "red";
-        s2.style.color = "red";
-        s3.style.color = "red";
-        s4.style.color = "red";
-        s5.style.color = "red";
+    if (number === 5) {        
+        s1.css("color", "red");
+        s2.css("color", "red");
+        s3.css("color", "red");
+        s4.css("color", "red");
+        s5.css("color", "blue");
     }
 }
 //funk12
-function starHover(theStar) {
+
+var theStar;
+/*function starHover(theStar) {    
     'use strict';
+    var a = s1.html(); //theStar.html();
+    alert("in hover-funk!" + a );// + " and " + s1.html());
     if (theStar === s1) {
-        lightStar(1);
-        //alert("star1");        
+        alert("hover, star1");
+        lightStar(1);                
     }
     if (theStar === s2) {
+        alert("star2");
         lightStar(2);
     }
     if (theStar === s3) {
+        alert("star3");
         lightStar(3);
     }
     if (theStar === s4) {
+        alert("star4");
         lightStar(4);
     }
     if (theStar === s5) {
+        alert("star5");
         lightStar(5);
     }
 }
-
+*/
 function setSiteRating(RatingScoreResult, NumberOfRatingsResult) {
     'use strict';
     var theRScoreId = "RatingScore",//RatingScore ID
@@ -376,7 +384,7 @@ var toggle = false;
 function setVotingImageVisible(id, visible) {
     'use strict';
     var img = document.getElementById(id);
-    //img.style.visibility = (visible ? 'visible' : 'hidden');
+    
     if (visible) {
         $(img).show(100);
     } else {
@@ -409,6 +417,8 @@ function loadRatingPointsStart() {
             }
             //});
         });
+        
+        
     });
     //-------------
     
@@ -509,6 +519,8 @@ function loadRatingPointsFromServer(vote) {
             }
             //});
         });
+        
+        
     });
     //-------------
     //setSiteRating(voteValue, noOfVotes);
@@ -530,7 +542,12 @@ function getLastvote(tryingNewVote) {
             //document.getElementById("numberofpaj").innerHTML = Number(localStorage.portions) + " pajer";
             //displayOutput();
             var lastVote = Number(localStorage.uservote);
-            alert("man kan bara rösta en gång, du satte en " + lastVote + "sist..");
+            if (isNaN(lastVote)){
+                alert("***** Sluta surfa icognito ;-) *****");
+            }
+            else{
+                alert("man kan bara rösta en gång, du satte en " + lastVote + "sist..");                
+            }
             return false;
         } else {
             alert("Nu har du röstat för sista gången här, typ.. ");
@@ -547,65 +564,93 @@ function getLastvote(tryingNewVote) {
         }
 }
 
+var starBuffer;
+
+$("#star1").hover( function () { starBuffer = 1; lightStar(1); });
+$("#star2").hover( function () { starBuffer = 2; lightStar(2); });
+$("#star3").hover( function () { starBuffer = 3; lightStar(3); });
+$("#star4").hover( function () { starBuffer = 4; lightStar(4); });
+$("#star5").hover( function () { starBuffer = 5; lightStar(5); });
+
+$("#star1").mouseout( function () { starOut(1); });
+$("#star2").mouseout( function () { starOut(2); });
+$("#star3").mouseout( function () { starOut(3); });
+$("#star4").mouseout( function () { starOut(4); });
+$("#star5").mouseout( function () { starOut(5); });
+
+$("#star1").mousedown( function () { starLight(starBuffer); });
+$("#star2").mousedown( function () { starLight(starBuffer); });
+$("#star3").mousedown( function () { starLight(starBuffer); });
+$("#star4").mousedown( function () { starLight(starBuffer); });
+$("#star5").mousedown( function () { starLight(starBuffer); });
+
+$("#star1").mouseup( function () { starClick(1); });
+$("#star2").mouseup( function () { starClick(2); });
+$("#star3").mouseup( function () { starClick(3); });
+$("#star4").mouseup( function () { starClick(4); });
+$("#star5").mouseup( function () { starClick(5); });
+
+
+
 function starOut(theStar) {
     'use strict';
     if (theStar === s1) {
         //alert("star1");
-        s1.style.color = "silver";
-        s2.style.color = "silver";
-        s3.style.color = "silver";
-        s4.style.color = "silver";
-        s5.style.color = "silver";
+        s1.css("color", "silver");
+        s2.css("color", "silver");
+        s3.css("color", "silver");
+        s4.css("color", "silver");
+        s5.css("color", "silver");
     }
     if (theStar === s2) {
-        s1.style.color = "silver";
-        s2.style.color = "silver";
-        s3.style.color = "silver";
-        s4.style.color = "silver";
-        s5.style.color = "silver";
+        s1.css("color", "silver");
+        s2.css("color", "silver");
+        s3.css("color", "silver");
+        s4.css("color", "silver");
+        s5.css("color", "silver");
     }
     if (theStar === s3) {
-        s1.style.color = "silver";
-        s2.style.color = "silver";
-        s3.style.color = "silver";
-        s4.style.color = "silver";
-        s5.style.color = "silver";
+        s1.css("color", "silver");
+        s2.css("color", "silver");
+        s3.css("color", "silver");
+        s4.css("color", "silver");
+        s5.css("color", "silver");
     }
     if (theStar === s4) {
-        s1.style.color = "silver";
-        s2.style.color = "silver";
-        s3.style.color = "silver";
-        s4.style.color = "silver";
-        s5.style.color = "silver";
+        s1.css("color", "silver");
+        s2.css("color", "silver");
+        s3.css("color", "silver");
+        s4.css("color", "silver");
+        s5.css("color", "silver");
     }
     if (theStar === s5) {
-        s1.style.color = "silver";
-        s2.style.color = "silver";
-        s3.style.color = "silver";
-        s4.style.color = "silver";
-        s5.style.color = "silver";
+        s1.css("color", "silver");
+        s2.css("color", "silver");
+        s3.css("color", "silver");
+        s4.css("color", "silver");
+        s5.css("color", "silver");
     }
     //alert("from starout = " + siteVote);
     
     loadRatingPointsFromLocalVar();
 }
 
-function starLight(TheStar) { //mousedownClick
+function starLight(numberBuffer) { //mousedownClick
     'use strict';
-    if (theStar === s1) {
-        s1.style.color = "gold";
+    if (numberBuffer === 1) {
+        s1.css("color", "gold");
     }
-    if (theStar === s2) {
-        s2.style.color = "gold";
+    if (numberBuffer === 2) {
+        s2.css("color", "gold");
     }
-    if (theStar === s3) {
-        s3.style.color = "gold";
+    if (numberBuffer === 3) {
+        s3.css("color", "gold");
     }
-    if (theStar === s4) {
-        s4.style.color = "gold";
+    if (numberBuffer === 4) {
+        s4.css("color", "gold");
     }
-    if (theStar === s5) {
-        s5.style.color = "gold";
+    if (numberBuffer === 5) {
+        s5.css("color", "gold");
     }
 }
 
@@ -613,8 +658,9 @@ function starLight(TheStar) { //mousedownClick
 
 function sendVote(userVote) {
     'use strict';
+    
     //update the vote on server..
-    //alert(userVote);
+    alert("sending : " + userVote);
     //loadRatingPointsFromServer(userVote);
 }
 
@@ -624,19 +670,19 @@ function sendVote(userVote) {
 function starClick(theStar) {
     'use strict';
     var vote;
-    if (theStar === s1) {
+    if (theStar === 1) {
         vote = 1;
     }
-    if (theStar === s2) {
+    if (theStar === 2) {
         vote = 2;
     }
-    if (theStar === s3) {
+    if (theStar === 3) {
         vote = 3;
     }
-    if (theStar === s4) {
+    if (theStar === 4) {
         vote = 4;
     }
-    if (theStar === s5) {
+    if (theStar === 5) {
         vote = 5;
     }
     //alert("send from starclick: " + vote);
@@ -654,23 +700,7 @@ function starClick(theStar) {
 
 
 
-//function starHover() {
-//    'use strict';
- /*   s1.style.color = 'red';
-    s2.style.color = 'red';
-    s3.style.color = 'red';
-    s4.style.color = 'red';
-    s5.style.color = 'red';*/
-//    alert("hover");
-//}
-//function starOut() {
-//    'use strict';
-/*    s1.style.color = 'silver';
-    s2.style.color = 'silver';
-    s3.style.color = 'silver';
-    s4.style.color = 'silver';
-    s5.style.color = 'silver';*/
-//}
+
 
 function dontClick() {
     'use strict';
@@ -709,6 +739,12 @@ window.onload = function () {
     'use strict';
     //alert("in onload");
     newDate();
+    var s1 = $("#star1"),
+        s2 = $("#star2"),
+        s3 = $("#star3"),
+        s4 = $("#star4"),
+        s5 = $("#star5");
+    
     setVotingImageVisible('votingImage', false);
     setVotingImageVisible('startImage', false);
     
@@ -721,35 +757,7 @@ window.onload = function () {
     
     getLastSessionAmount();
     
-    /* 
-    var x=loadXLMData();
-    var xml=x.responseXML;
-    var path="/bookstore/book/title";
-    // code for IE
-if (window.ActiveXObject || xhttp.responseType=="msxml-document")
-{
-xml.setProperty("SelectionLanguage","XPath");
-nodes=xml.selectNodes(path);
-for (i=0;i<nodes.length;i++)
-  {      
-  document.write(nodes[i].childNodes[0].nodeValue);
-  document.write("<br>");
-  }
-}
-// code for Chrome, Firefox, Opera, etc.
-else if (document.implementation && document.implementation.createDocument)
-{
-var nodes=xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
-var result=nodes.iterateNext();
-
-while (result)
-  {
-  document.write(result.childNodes[0].nodeValue);
-  document.write("<br>");
-  result=nodes.iterateNext();
-  }
-}
-
-*/
+    IncognitoDialog();
+   
     
 };
